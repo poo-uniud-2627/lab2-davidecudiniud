@@ -19,6 +19,7 @@ public class MotoreDeiLivelli {
     /** La palla: 5 pixel per fotogramma al livello 1, mezzo pixel in più a ogni livello. */
     static final double VELOCITA_AL_LIVELLO_1 = 5;
     static final double VELOCITA_IN_PIU_A_OGNI_LIVELLO = 0.5;
+    public static final int STELLE_IN_MENO = 30;
 
     /**
      * Il giocatore automatico: sbaglia fino a 90 pixel al livello 1, 12 in meno a ogni livello.
@@ -39,7 +40,8 @@ public class MotoreDeiLivelli {
         }
         double velocita = VELOCITA_AL_LIVELLO_1 + VELOCITA_IN_PIU_A_OGNI_LIVELLO * (numero - 1);
         double errore = Math.max(0, ERRORE_AL_LIVELLO_1 - ERRORE_IN_MENO_A_OGNI_LIVELLO * (numero - 1));
-        return new Livello(numero, velocita, errore, new Ostacoli(ostacoli(numero, larghezzaCampo / 2.0, altezzaCampo / 2.0)));
+        int durataStella = 300- (30*numero);
+        return new Livello(numero, velocita, errore, new Ostacoli(ostacoli(numero, larghezzaCampo / 2.0, altezzaCampo / 2.0)), durataStella);
     }
 
     /**

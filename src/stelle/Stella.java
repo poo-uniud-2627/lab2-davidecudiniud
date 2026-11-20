@@ -15,23 +15,29 @@ public class Stella {
      * (60 fotogrammi sono un secondo).
      * Lancia IllegalArgumentException se area è null o se durata è minore di 1.
      */
+    private Rettangolo area;
+    private int durata;
+    private boolean raccolta = false;
     public Stella(Rettangolo area, int durata) {
-        throw new UnsupportedOperationException("da scrivere");
+        if(area==null || durata<1) throw new IllegalArgumentException("Area o durata non validi");
+        this.area= area;
+        this.durata=durata;
     }
 
     /** Dove sta la stella. Promette: non è null e non cambia mai. */
     public Rettangolo getArea() {
-        throw new UnsupportedOperationException("da scrivere");
+        return area;
     }
 
     /** Vero se si vede: non è stata raccolta e il suo tempo non è finito. */
     public boolean isVisibile() {
-        throw new UnsupportedOperationException("da scrivere");
+        if(!isRaccolta() && durata>0) return true;
+        else return false;
     }
 
     /** Vero se è stata raccolta. */
     public boolean isRaccolta() {
-        throw new UnsupportedOperationException("da scrivere");
+        return raccolta;
     }
 
     /**
@@ -39,7 +45,9 @@ public class Stella {
      * su una stella raccolta o sparita non cambia niente.
      */
     public void avanza() {
-        throw new UnsupportedOperationException("da scrivere");
+        if(!isRaccolta() || durata>0){
+            durata--;
+        }
     }
 
     /**
@@ -48,6 +56,7 @@ public class Stella {
      * Lancia IllegalStateException se la stella non è visibile (già raccolta, o sparita), e non cambia niente.
      */
     public void raccogli() {
-        throw new UnsupportedOperationException("da scrivere");
+        if(durata<0 || !isVisibile()) throw new IllegalStateException();
+        else raccolta= true;
     }
 }

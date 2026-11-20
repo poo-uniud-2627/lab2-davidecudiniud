@@ -11,8 +11,12 @@ public class Raccolta {
      * Un conto nuovo, a zero.
      * Lancia IllegalArgumentException se stellePerUnaVita è minore di 1.
      */
+    private int stelleRaccolte;
+    private int stellePerUnaVita;
     public Raccolta(int stellePerUnaVita) {
-        throw new UnsupportedOperationException("da scrivere");
+        if(stellePerUnaVita<1) throw new IllegalArgumentException("Numero di stelle per una vita minore di uno");
+         this.stellePerUnaVita= stellePerUnaVita;
+         stelleRaccolte = 0;
     }
 
     /**
@@ -21,11 +25,18 @@ public class Raccolta {
      *           Altrimenti falso, e il conto cresce di 1.
      */
     public boolean aggiungi() {
-        throw new UnsupportedOperationException("da scrivere");
+        if(stelleRaccolte+1==stellePerUnaVita){
+            stelleRaccolte=0;
+            return true;
+        }
+        else{
+            stelleRaccolte++;
+            return false;
+        }
     }
 
     /** Le stelle raccolte dall'ultima vita guadagnata. Promette: fra 0 e stellePerUnaVita - 1. */
     public int getStelle() {
-        throw new UnsupportedOperationException("da scrivere");
+        return stelleRaccolte;
     }
 }

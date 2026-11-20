@@ -14,42 +14,69 @@ public class Livelli {
      * Promette: livello 1, con tutte le vite; il gioco non è completato né perso.
      * Lancia IllegalArgumentException se numeroLivelli o vite è minore di 1, o se umano è null.
      */
+ 
+    // scrivete qui i campi che vi servono
+    private final int numeroLivelli;
+    private final int viteIniziali;
+    private int vite;
+    private Lato umano;
+    private int livello;
+    private boolean finito;
+    /**
+     * Un gioco nuovo.
+     * Pretende: niente.
+     * Promette: livello 1, con tutte le vite; il gioco non è completato né perso.
+     * Lancia IllegalArgumentException se numeroLivelli o vite è minore di 1, o se umano è null.
+     */
     public Livelli(int numeroLivelli, int vite, Lato umano) {
-        throw new UnsupportedOperationException("da scrivere");
+        if(numeroLivelli<1 || vite<1)
+            throw new IllegalArgumentException("numero livelli o vite minore di 1");
+        else if(umano==null)
+            throw new IllegalArgumentException("Lato umano non valido");
+        this.numeroLivelli = numeroLivelli;
+        this.vite=vite;
+        viteIniziali=vite;
+        this.umano = umano;
+        livello=1;
+        finito = false;
     }
 
     /** Il livello a cui si gioca, fra 1 e getNumeroLivelli(). */
     public int getLivello() {
-        throw new UnsupportedOperationException("da scrivere");
+        return livello; // scrivete qui
     }
 
+    /** Quanti livelli ha il gioco. */
     public int getNumeroLivelli() {
-        throw new UnsupportedOperationException("da scrivere");
+        return numeroLivelli; // scrivete qui
     }
 
     /** Le vite che restano, fra 0 e quelle iniziali. */
     public int getVite() {
-        throw new UnsupportedOperationException("da scrivere");
+        return vite; // scrivete qui
     }
 
     /** Il lato su cui gioca la persona (l'altro è il giocatore automatico). */
     public Lato getUmano() {
-        throw new UnsupportedOperationException("da scrivere");
+        return umano; // scrivete qui
     }
 
     /** Vero se è stato vinto l'ultimo livello. */
     public boolean isCompletato() {
-        throw new UnsupportedOperationException("da scrivere");
+        if(livello == numeroLivelli && finito && vite>0){
+            return true;
+        }
+        else return false; // scrivete qui
     }
 
     /** Vero se le vite sono finite. */
     public boolean isPerso() {
-        throw new UnsupportedOperationException("da scrivere");
+        return vite<1; // scrivete qui
     }
 
     /** Vero se il gioco è completato o perso. */
     public boolean isFinito() {
-        throw new UnsupportedOperationException("da scrivere");
+        return finito; // scrivete qui
     }
 
     /**
@@ -63,7 +90,23 @@ public class Livelli {
      * Lancia IllegalArgumentException se vincitore è null, e non cambia niente.
      */
     public void partitaFinita(Lato vincitore) {
-        throw new UnsupportedOperationException("da scrivere");
+        if(vincitore==null){
+            throw new IllegalArgumentException("Vincitore nullo");
+        }
+        if (!isFinito()){
+            if(vincitore==umano){
+                if( livello!=numeroLivelli)
+                    livello++;
+                else 
+                    finito=true;
+            }
+            else{
+                if(vite<=1){
+                    finito = true;
+                }
+                vite--;
+            }
+        }
     }
 
     /**
@@ -72,16 +115,11 @@ public class Livelli {
      * Promette: livello 1, con tutte le vite; il gioco non è completato né perso.
      */
     public void ricomincia() {
-        throw new UnsupportedOperationException("da scrivere");
+        livello = 1;
+        vite=viteIniziali;
+        finito=false;
     }
-
-    /**
-     * Si riguadagna una vita (variante 2: con le stelle).
-     * Pretende: niente.
-     * Promette: se il gioco è finito (completato o perso), non cambia niente. Altrimenti una vita in più,
-     *           ma mai più delle vite iniziali: con tutte le vite, non cambia niente. Il livello non cambia.
-     */
     public void guadagnaVita() {
-        throw new UnsupportedOperationException("da scrivere");
+        if(!isFinito() && vite<viteIniziali) vite++;
     }
 }

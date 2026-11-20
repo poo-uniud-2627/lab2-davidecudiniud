@@ -27,6 +27,7 @@ class Partita {
     private Livello livello;
     private Ostacoli ostacoli;
     private boolean iniziata;
+    private final Livelli livelli;
 
     /** Una partita fra umano, a sinistra, e il giocatore automatico, a destra; si comincia dal livello 1. */
     Partita(Campo campo, Giocatore umano) {
@@ -36,7 +37,9 @@ class Partita {
         this.racchettaSinistra = new Racchetta(30, centroY);
         this.racchettaDestra = new Racchetta(campo.getLarghezza() - 30 - Racchetta.LARGHEZZA, centroY);
         this.palla = new Palla(campo.getLarghezza() / 2.0, campo.getAltezza() / 2.0);
+        this.livelli = new Livelli(5,3, Lato.SINISTRA);
         preparaLivello(1);
+
     }
 
     /**
